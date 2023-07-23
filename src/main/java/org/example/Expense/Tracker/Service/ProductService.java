@@ -65,4 +65,22 @@ public class ProductService {
         }
         return amount;
     }
+
+    public List<Product> getAllProducts(LocalDate date, String email) {
+        User user = userService.getFirstByEmail(email);
+
+        List<Product> products = productRepo.findByUser(user);
+
+        if(products == null)
+            return null;
+
+        for(Product product : products)
+        {
+            if(product.getProdDate().equals(date))
+                continue;
+            else
+                products.remove(product);
+        }
+        return products;
+    }
 }

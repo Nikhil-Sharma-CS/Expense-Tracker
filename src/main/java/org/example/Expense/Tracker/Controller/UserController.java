@@ -102,4 +102,15 @@ public class UserController {
         }
         return "Authentication Failed";
     }
+
+    //See all products for a user by date
+    @GetMapping("products")
+    public List<Product> getAllProducts(LocalDate Date, String email, String token)
+    {
+        if(authenticationService.authenticate(email, token))
+        {
+            return productService.getAllProducts(Date, email);
+        }
+        return null;
+    }
 }
